@@ -4,22 +4,22 @@ const Schema = mongoose.Schema;
 let ContractSchema = new Schema(
     {
         clientAddress: { type: String, required: true },
-        destinationCahin: { type: String },
-        contractStandart: { type: String },
-        collectionName: { type: String },
-        tokenTicker: { type: String },
-        royalties: { type: String },//bool
-        royaltiesPercentage: { type: String },
-        royaltiesAddress: { type: String },
-        targetMarketplace: { type: String },
+        destinationCahin: { type: String , default: ""},
+        contractStandart: { type: String, default: ""},
+        collectionName: { type: String , default: ""},
+        tokenTicker: { type: String , default: ""},
+        royalties: { type: String, default: "" },//bool
+        royaltiesPercentage: { type: String, default: "" },
+        royaltiesAddress: { type: String , default: ""},
+        targetMarketplace: { type: String , default: ""},
         departureDetailes: [{
-            chain: { type: String },
-            contractAddress: { type: String },
-            keepOriginalTokenIds: { type: String },//bool
-            transferOnlyWithIds: { type: String },//bool
+            chain: { type: String , default: ""},
+            contractAddress: { type: String , default: ""},
+            keepOriginalTokenIds: { type: String , default: ""},//bool
+            transferOnlyWithIds: { type: String , default: ""},//bool
             ids: []
         }],
-        ownershipTransferd: { type: String },//bool
+        ownershipTransferd: { type: String , default: ""},//bool
         cretatedAt: { type: Date, default: Date.now() }
     },
     { collection: "contracts", versionKey: false }
