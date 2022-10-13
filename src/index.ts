@@ -1,12 +1,14 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from "cors";
+import bodyParser from "body-parser";
 import { contractRouter } from "./controller/contract"
 import "dotenv/config";
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(bodyParser.json());
 app.use(express.json({ limit: 100000000 }));
 app.use(express.urlencoded({ limit: 100000000, extended: true, parameterLimit: 100000000 }));
 app.use(
