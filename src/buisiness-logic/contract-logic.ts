@@ -20,9 +20,7 @@ export const postContract = async (data) => {
         const {
             clientAddress, destinationCahin, contractStandart,
             collectionName, tokenTicker, royalties, royaltiesPercentage,
-            royaltiesAddress, targetMarketplace,
-            chain, contractAddress, keepOriginalTokenIds,
-            transferOnlyWithIds, ids, ownershipTransferd
+            royaltiesAddress, targetMarketplace, departureDetailes, ownershipTransferd
         } = data
 
         const res = await Contract.create({
@@ -35,13 +33,7 @@ export const postContract = async (data) => {
             royaltiesPercentage,
             royaltiesAddress,
             targetMarketplace,
-            departureDetailes: [{
-                chain,
-                contractAddress,
-                keepOriginalTokenIds,//bool
-                transferOnlyWithIds,//bool
-                ids
-            }],
+            departureDetailes,
             ownershipTransferd
         })
         return res;
