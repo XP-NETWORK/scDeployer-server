@@ -7,10 +7,17 @@ export const contractRouter = () => {
 
     router.get("/contract", async (req, res) => {
         try {
-
-
-
-
+            const { clientAddress, destinationCahin, collectionName } = req.query
+            if (!clientAddress || !destinationCahin || !collectionName) {
+                res.status(404).send("undefined address")
+            } else {
+                const resonse = await getContract(req.query)
+                if (resonse) {
+                    res.status(200).send(resonse)
+                } else {
+                    res.status(404).send("Contract Not Found")
+                }
+            }
         } catch (error) {
 
         }
@@ -29,6 +36,7 @@ export const contractRouter = () => {
                 }
             }
         } catch (error) {
+            console.log(error);
             res.status(404).send("error")
         }
     });
@@ -37,7 +45,8 @@ export const contractRouter = () => {
         try {
 
         } catch (error) {
-
+            console.log(error);
+            res.status(404).send("error")
         }
     });
 
