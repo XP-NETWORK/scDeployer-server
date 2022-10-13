@@ -2,9 +2,16 @@ import { Contract } from "../models/contract";
 
 export const getContract = async (data) => {
     try {
-
+        const { clientAddress, destinationCahin, collectionName } = data
+        const res = await Contract.find({ clientAddress, destinationCahin, collectionName })
+        if (res.length > 0) {
+            return res;
+        } else {
+            return undefined;
+        }
     } catch (error) {
-
+        console.log(error);
+        return undefined;
     }
 }
 
