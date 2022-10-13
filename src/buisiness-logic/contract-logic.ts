@@ -36,18 +36,22 @@ export const postContract = async (data) => {
             departureDetailes,
             ownershipTransferd
         })
-        return res;
+        if (res) return res; else return undefined;
     } catch (error) {
         console.log(error);
         return undefined;
     }
 }
 
-export const updateContract = async () => {
+export const addDeparture = async (data) => {
     try {
-
+        const { departureDetailes, clientAddress, destinationCahin } = data
+        const res = await Contract.updateOne({ clientAddress, destinationCahin },
+            { $push: { departureDetailes } }, { new: true, fields: "departureDetailes" }).exec()
+        if (res) return res; else return undefined;
     } catch (error) {
-
+        console.log(error);
+        return undefined;
     }
 }
 

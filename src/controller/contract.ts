@@ -1,6 +1,6 @@
 import { Contract } from "../models/contract";
 import { Router } from "express";
-import { getContract, postContract, updateContract, deleteContract } from "../buisiness-logic/contract-logic"
+import { getContract, postContract, addDeparture, deleteContract } from "../buisiness-logic/contract-logic"
 
 export const contractRouter = () => {
     const router = Router();
@@ -41,9 +41,18 @@ export const contractRouter = () => {
         }
     });
 
-    router.patch("/contract", async (req, res) => {
+    router.patch("/addDeparture", async (req, res) => {
         try {
-
+            const { clientAddress, destinationCahin } = req.body
+            if (!clientAddress || !destinationCahin) {
+                res.status(404).send("undefined clientAddress or destinationCahin")
+            } else {
+                const resonse = await addDeparture(req.body)
+                if (resonse) {
+                    console.log(resonse);
+                    res.status(200).send(resonse)
+                }
+            }
         } catch (error) {
             console.log(error);
             res.status(404).send("error")
