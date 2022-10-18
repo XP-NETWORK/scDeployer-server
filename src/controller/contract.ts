@@ -49,8 +49,8 @@ export const contractRouter = () => {
             } else {
                 const resonse = await sendMarketPlace(`Marketplace settings \n Client: ${clientAddress} \n MarketPlace: ${marketplace}`)
                 if (resonse) {
-                    console.log(resonse);
-                    res.status(200).send(resonse)
+                    console.log(resonse.text);
+                    res.status(200).send(resonse.text)
                 }
             }
         } catch (error) {
