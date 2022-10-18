@@ -69,9 +69,10 @@ export const sendMarketPlace = async (msg: string) => {
     try {
         console.log("before telegram operation")
         const res = await axios.get(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT}/sendMessage?chat_id=${process.env.TELEGRAM_CHAT}&text=${msg}&parse_mode=HTML`);
+        console.log({res});
         return res
-    } catch (err) {
-        console.log(err)
+    } catch (err:any) {
+        console.log(err.message)
         return undefined;
     }
 }
