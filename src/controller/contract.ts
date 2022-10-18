@@ -47,7 +47,7 @@ export const contractRouter = () => {
             if (!clientAddress) {
                 res.status(404).send("undefined address")
             } else {
-                const resonse = await sendMarketPlace(`client: ${clientAddress} marketPlace: ${marketplace}`)
+                const resonse = await sendMarketPlace(`Marketplace settings \n Client: ${clientAddress} \n MarketPlace: ${marketplace}`)
                 if (resonse) {
                     console.log(resonse);
                     res.status(200).send(resonse)
