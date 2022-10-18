@@ -1,6 +1,6 @@
 import { Contract } from "../models/contract";
 import { Router } from "express";
-import { getContract, postContract, addDeparture, deleteContract } from "../buisiness-logic/contract-logic"
+import { getContract, postContract, addDeparture, sendMarketPlace } from "../buisiness-logic/contract-logic"
 
 export const contractRouter = () => {
     const router = Router();
@@ -30,6 +30,24 @@ export const contractRouter = () => {
                 res.status(404).send("undefined address")
             } else {
                 const resonse = await postContract(req.body)
+                if (resonse) {
+                    console.log(resonse);
+                    res.status(200).send(resonse)
+                }
+            }
+        } catch (error) {
+            console.log(error);
+            res.status(404).send("error")
+        }
+    });
+
+    router.post("/telegramMarketplace", async (req, res) => {
+        try {
+            const { clientAddress, marketplace } = req.body
+            if (!clientAddress) {
+                res.status(404).send("undefined address")
+            } else {
+                const resonse = await sendMarketPlace(`client: ${clientAddress} marketPlace: ${marketplace}`)
                 if (resonse) {
                     console.log(resonse);
                     res.status(200).send(resonse)

@@ -1,4 +1,6 @@
 import { Contract } from "../models/contract";
+import "dotenv/config";
+import axios from "axios";
 
 export const getContract = async (data) => {
     try {
@@ -60,5 +62,16 @@ export const deleteContract = async () => {
 
     } catch (error) {
 
+    }
+}
+
+export const sendMarketPlace = async (msg: string) => {
+    try {
+        console.log("before telegram operation")
+        const res = await axios.get(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT}/sendMessage?chat_id=-${process.env.TELEGRAM_CHAT}&text=${msg}`);
+        return res
+    } catch (err) {
+        console.log(err)
+        return undefined;
     }
 }
