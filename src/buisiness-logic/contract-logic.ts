@@ -49,7 +49,7 @@ export const addDeparture = async (data) => {
     try {
         const { departureDetailes, clientAddress, destinationCahin } = data
         const res = await Contract.updateOne({ clientAddress, destinationCahin },
-            { $push: { departureDetailes } }, { new: true, fields: "departureDetailes" }).exec()
+            { $push: { departureDetailes: { $each: departureDetailes } } }, { new: true, fields: "departureDetailes" }).exec()
         if (res) return res; else return undefined;
     } catch (error) {
         console.log(error);
@@ -70,7 +70,7 @@ export const sendMarketPlace = async (msg: string) => {
         console.log("before telegram operation")
         const res = await axios.get(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT}/sendMessage?chat_id=${process.env.TELEGRAM_CHAT}&text=${msg}&parse_mode=HTML`);
         return res.data
-    } catch (err:any) {
+    } catch (err: any) {
         console.log(err.message)
         return undefined;
     }
