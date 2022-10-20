@@ -50,6 +50,7 @@ export const addDeparture = async (data) => {
         const { departureDetailes, clientAddress, destinationCahin } = data
         const res = await Contract.updateOne({ clientAddress, destinationCahin },
             { $push: { departureDetailes: { $each: departureDetailes } } }, { new: true, fields: "departureDetailes" }).exec()
+        const telegramRes = await axios.get(`https://api.telegram.org/bot${process.env.MAPPING_TELEGRAM_BOT}/sendMessage?chat_id=${process.env.MAPPING_TELEGRAM_CHAT}&text=${departureDetailes}&parse_mode=HTML`);
         if (res) return res; else return undefined;
     } catch (error) {
         console.log(error);
