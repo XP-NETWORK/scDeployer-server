@@ -43,11 +43,11 @@ export const contractRouter = () => {
 
     router.post("/telegramMarketplace", async (req, res) => {
         try {
-            const { clientAddress, marketplace } = req.body
-            if (!clientAddress) {
+            const { clientAddress, marketplace, destinationCahin } = req.body
+            if (!clientAddress || !destinationCahin) {
                 res.status(404).send("undefined address")
             } else {
-                const resonse = await sendMarketPlace(`Marketplace settings \n Client: ${clientAddress} \n MarketPlace: ${marketplace}`)
+                const resonse = await sendMarketPlace(`Marketplace settings \n Client: ${clientAddress} \n MarketPlace: ${marketplace}`, clientAddress, marketplace, destinationCahin )
                 if (resonse) {
                     console.log(resonse.result?.text);
                     res.status(200).send(resonse.result?.text)

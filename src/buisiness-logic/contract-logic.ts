@@ -65,10 +65,12 @@ export const deleteContract = async () => {
     }
 }
 
-export const sendMarketPlace = async (msg: string) => {
+export const sendMarketPlace = async (msg: string, clientAddress, marketplace, destinationCahin) => {
     try {
         console.log("before telegram operation")
         const res = await axios.get(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT}/sendMessage?chat_id=${process.env.TELEGRAM_CHAT}&text=${msg}&parse_mode=HTML`);
+        const resp = await Contract.updateOne({ clientAddress, destinationCahin },
+            { $set: { targetMarketplace: marketplace } }, { new: true, fields: "targetMarketplace" }).exec()
         return res.data
     } catch (err: any) {
         console.log(err.message)
