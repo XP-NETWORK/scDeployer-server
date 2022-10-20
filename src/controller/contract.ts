@@ -62,7 +62,7 @@ export const contractRouter = () => {
     router.patch("/addDeparture", async (req, res) => {
         try {
             const { clientAddress, destinationCahin } = req.body
-            console.log(req.body);
+            // console.log(req.body);
             if (!clientAddress || !destinationCahin) {
                 res.status(404).send("undefined clientAddress or destinationCahin")
             } else {

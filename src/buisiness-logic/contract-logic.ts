@@ -2,6 +2,20 @@ import { Contract } from "../models/contract";
 import "dotenv/config";
 import axios from "axios";
 
+export const chainToNonce: any = {
+    "Ethereum": "5",
+    "BSC": "4",
+    "Avalanche": "6",
+    "Polygon": "7",
+    "Fantom": "8",
+    "Harmony": "12",
+    "Gnosis": "14",
+    "Fuse": "16",
+    "Velas": "19",
+    "Aurora": "21",
+    "GateChain": "23",
+};
+
 export const getContract = async (data) => {
     try {
         const { clientAddress, destinationCahin, collectionName } = data
@@ -45,11 +59,22 @@ export const postContract = async (data) => {
 
 export const addDeparture = async (data) => {
     try {
-        const { departureDetailes, clientAddress, destinationCahin , destinationAddress} = data
+        const { departureDetailes, clientAddress, destinationCahin, destinationAddress } = data
         const res = await Contract.updateOne({ clientAddress, destinationCahin },
             { $push: { departureDetailes: { $each: departureDetailes } } }, { new: true, fields: "departureDetailes" }).exec()
+        let str = ''
+        let ids = ``
+        let num = 1
+        for (let item of departureDetailes) {
+            str = str + `%0ADeparture addres: ${item.contractAddress} %0A<strong>${item.chain} -${chainToNonce[item.chain]}</strong>%0A`
+            ids = ids + `%0A${num}: ${JSON.stringify(item.ids)}`
+            num++;
+        }
 
-        const telegramRes = await axios.get(`https://api.telegram.org/bot${process.env.MAPPING_TELEGRAM_BOT}/sendMessage?chat_id=${process.env.MAPPING_TELEGRAM_CHAT}&text=${departureDetailes}&parse_mode=HTML`);
+        const msg = `${str}%0ATarget contract : ${destinationAddress} %0A<strong>${destinationCahin} -${chainToNonce[destinationCahin]}</strong>%0A%0A-------------------------Departure Detailes---------------------%0A%0AClient Address:${clientAddress}%0AKeep Original Token Ids: ${departureDetailes[0].keepOriginalTokenIds}%0ATransfer Only With Ids: ${departureDetailes[0].transferOnlyWithIds}%0AIds: ${ids}`
+        const telegramRes = await axios.get(`https://api.telegram.org/bot${process.env.MAPPING_TELEGRAM_BOT}/sendMessage?chat_id=${process.env.MAPPING_TELEGRAM_CHAT}&text=${msg}&parse_mode=HTML`);
+        console.log(telegramRes.data);
+
         if (res) return res; else return undefined;
     } catch (error) {
         console.log(error);
