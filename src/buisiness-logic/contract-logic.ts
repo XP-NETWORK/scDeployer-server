@@ -22,21 +22,19 @@ export const postContract = async (data) => {
         const {
             clientAddress, destinationCahin, contractStandart,
             collectionName, tokenTicker, royalties, royaltiesPercentage,
-            royaltiesAddress, targetMarketplace, departureDetailes, ownershipTransferd
+            royaltiesAddress, destinationAddress
         } = data
 
         const res = await Contract.create({
             clientAddress,
             destinationCahin,
+            destinationAddress,
             contractStandart,
             collectionName,
             tokenTicker,
             royalties,
             royaltiesPercentage,
             royaltiesAddress,
-            targetMarketplace,
-            departureDetailes,
-            ownershipTransferd
         })
         if (res) return res; else return undefined;
     } catch (error) {
@@ -66,12 +64,12 @@ export const deleteContract = async () => {
     }
 }
 
-export const sendMarketPlace = async (msg: string, clientAddress, marketplace, destinationCahin) => {
+export const sendMarketPlace = async (msg: string, clientAddress, marketplace, destinationCahin, createdMarketplace, mintNft) => {
     try {
         console.log("before telegram operation")
         const res = await axios.get(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT}/sendMessage?chat_id=${process.env.TELEGRAM_CHAT}&text=${msg}&parse_mode=HTML`);
         const resp = await Contract.updateOne({ clientAddress, destinationCahin },
-            { $set: { targetMarketplace: marketplace } }, { new: true, fields: "targetMarketplace" }).exec()
+            { $set: { targetMarketplace: marketplace, createdMarketplace, mintNft } }, { new: true, fields: "targetMarketplace" }).exec()
         return res.data
     } catch (err: any) {
         console.log(err.message)

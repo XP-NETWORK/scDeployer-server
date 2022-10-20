@@ -4,22 +4,25 @@ const Schema = mongoose.Schema;
 let ContractSchema = new Schema(
     {
         clientAddress: { type: String, required: true },
-        destinationCahin: { type: String , default: ""},
-        contractStandart: { type: String, default: ""},
-        collectionName: { type: String , default: ""},
-        tokenTicker: { type: String , default: ""},
+        destinationCahin: { type: String, default: "" },
+        destinationAddress: { type: String, default: "" },
+        contractStandart: { type: String, default: "" },
+        collectionName: { type: String, default: "" },
+        tokenTicker: { type: String, default: "" },
         royalties: { type: String, default: "" },//bool
         royaltiesPercentage: { type: String, default: "" },
-        royaltiesAddress: { type: String , default: ""},
-        targetMarketplace: { type: String , default: ""},
+        royaltiesAddress: { type: String, default: "" },
+        createdMarketplace: { type: String, default: "" },
+        targetMarketplace: { type: String, default: "" },
+        mintNft: { type: String, default: "" },
         departureDetailes: [{
-            chain: { type: String , default: ""},
-            contractAddress: { type: String , default: ""},
-            keepOriginalTokenIds: { type: String , default: ""},//bool
-            transferOnlyWithIds: { type: String , default: ""},//bool
+            chain: { type: String, default: "" },
+            contractAddress: { type: String, default: "" },
+            keepOriginalTokenIds: { type: String, default: "" },//bool
+            transferOnlyWithIds: { type: String, default: "" },//bool
             ids: []
         }],
-        ownershipTransferd: { type: String , default: ""},//bool
+        ownershipTransferd: { type: String, default: "" },//bool
         cretatedAt: { type: Date, default: Date.now() }
     },
     { collection: "contracts", versionKey: false }
