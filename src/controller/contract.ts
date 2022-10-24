@@ -7,8 +7,8 @@ export const contractRouter = () => {
 
     router.get("/contract", async (req, res) => {
         try {
-            const { clientAddress, destinationCahin, collectionName } = req.query
-            if (!clientAddress || !destinationCahin || !collectionName) {
+            const { clientAddress, destinationCahin } = req.query
+            if (!clientAddress || !destinationCahin) {
                 res.status(404).send("undefined address")
             } else {
                 const resonse = await getContract(req.query)
