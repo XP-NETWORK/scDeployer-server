@@ -18,8 +18,8 @@ export const chainToNonce: any = {
 
 export const getContract = async (data) => {
     try {
-        const { clientAddress, destinationCahin } = data
-        const res = await Contract.find({ clientAddress, destinationCahin })
+        const { destinationAddress, destinationCahin ,clientAddress } = data
+        const res = await Contract.find({ destinationAddress, destinationCahin ,clientAddress })
         if (res.length > 0) {
             return res;
         } else {
