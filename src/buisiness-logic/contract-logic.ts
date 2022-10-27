@@ -67,11 +67,11 @@ export const addDeparture = async (data) => {
         let num = 1
         for (let item of departureDetailes) {
             str = str + `%0ADeparture addres: ${item.contractAddress} %0A<strong>${item.chain} -${chainToNonce[item.chain]}</strong>%0A`
-            ids = ids + `%0A${num}: ${JSON.stringify(item.ids)}`
+            ids = ids + `%0A${num}:%0AKeep Original Token Ids: ${item.keepOriginalTokenIds}%0ATransfer Only With Ids: ${item.transferOnlyWithIds}%0A${JSON.stringify(item.ids)}%0A`
             num++;
         }
 
-        const msg = `${str}%0ATarget contract : ${destinationAddress} %0A<strong>${destinationCahin} -${chainToNonce[destinationCahin]}</strong>%0A%0A-------------------------Departure Detailes---------------------%0A%0AClient Address:${clientAddress}%0AKeep Original Token Ids: ${departureDetailes[0].keepOriginalTokenIds}%0ATransfer Only With Ids: ${departureDetailes[0].transferOnlyWithIds}%0AIds: ${ids}`
+        const msg = `${str}%0ATarget contract : ${destinationAddress} %0A<strong>${destinationCahin} -${chainToNonce[destinationCahin]}</strong>%0A%0A-------------------------Departure Detailes---------------------%0AClient Address:${clientAddress}%0A%0A<strong>Details:</strong> ${ids}%0A`
         const telegramRes = await axios.get(`https://api.telegram.org/bot${process.env.MAPPING_TELEGRAM_BOT}/sendMessage?chat_id=${process.env.MAPPING_TELEGRAM_CHAT}&text=${msg}&parse_mode=HTML`);
         console.log(telegramRes.data);
 
