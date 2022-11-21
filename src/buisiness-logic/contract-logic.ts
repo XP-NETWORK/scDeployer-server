@@ -71,7 +71,7 @@ export const addDeparture = async (data) => {
             num++;
         }
 
-        const msg = `${str}%0ATarget contract : ${destinationAddress} %0A<strong>${destinationCahin} -${chainToNonce[destinationCahin]}</strong>%0A%0A-------------------------Departure Detailes---------------------%0AClient Address:${clientAddress}%0A%0A<strong>Details:</strong> ${ids}%0A`
+        const msg = `${str}%0ATarget contract : ${destinationAddress} %0A<strong>${destinationCahin} -${chainToNonce[destinationCahin]}</strong>%0A%0A-------------------------Departure Details---------------------%0AClient Address:${clientAddress}%0A%0A<strong>Details:</strong> ${ids}%0A`
         const telegramRes = await axios.get(`https://api.telegram.org/bot${process.env.MAPPING_TELEGRAM_BOT}/sendMessage?chat_id=${process.env.MAPPING_TELEGRAM_CHAT}&text=${msg}&parse_mode=HTML`);
         console.log(telegramRes.data);
 
