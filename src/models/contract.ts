@@ -25,7 +25,7 @@ let ContractSchema = new Schema(
         ownershipTransferd: { type: String, default: "" },//bool
         cretatedAt: { type: Date, default: Date.now() }
     },
-    { collection: "contracts", versionKey: false }
+    { collection: "mainnetDeployer", versionKey: false }
 );
 
 export const Contract = mongoose.model("Deposit", ContractSchema);
